@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>INAGRI Dev Test</title>
+ <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<div id="navbarMenuHeroA" class="navbar-menu">
+    <div class="navbar-end">
+     <a href="{{ url_for('main.index') }}" class="navbar-item">
+      Home
+     </a>
+     {%  if session['loggedin'] %}
+     <a href="{{ url_for('main.profile') }}" class="navbar-item">
+      Profile
+     </a>
+     {% endif %}
+     {%  if not session['loggedin'] %}
+     <a href="{{ url_for('auth.login') }}" class="navbar-item">
+      Login
+     </a>
+     <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+      Signup
+     </a>
+     {% endif %}
+     {%  if session['loggedin'] %}
+     <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+      Logout
+     </a>
+     {% endif %}
+    </div>
+   </div>
+<h1 class="title" style="margin-bottom:20px;">
+    Welcome, {{ session['username'] }}!
+</h1>
+
+<div class="container" id="container" style="width:1200px;">
+<table>
+    <thead>
+    <tr class="table100-head">
+      <th class="column1">Username</th>
+      <th class="column2">Nama Lengkap</th>
+      <th class="column3">Email</th>
+      <th class="column4">No. Telepon</th>
+      <th class="column5">Tanggal Lahir</th>
+      <th class="column6">Role</th>
+      <th class="column7">Group</th>
+      <th class="column8">Sub Group</th>
+      <th class="column9">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in user %}
+    <tr>
+      <td class="column1">{{row[0]}}</td>
+      <td class="column2">{{row[1]}}</td>
+      <td class="column3">{{row[2]}}</td>
+      <td class="column4">{{row[3]}}</td>
+      <td class="column5">{{row[4].strftime('%d-%m-%Y')}}</td>
+      <td class="column6">{{row[5]}}</td>
+      <td class="column7">{{row[6]}}</td>
+      <td class="column8">{{row[7]}}</td>
+      <!-- <td class="column8">{{row[8]}}</td> -->
+      {% if row[8]==1 %}
+      <td class="column9">Active</td>
+      {% else %}
+      <td class="column9">Blocked</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+    
+  </table>
+</div>

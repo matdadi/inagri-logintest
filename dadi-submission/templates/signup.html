@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>INAGRI Dev Test</title>
+ <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<div id="navbarMenuHeroA" class="navbar-menu">
+    <div class="navbar-end">
+     <a href="{{ url_for('main.index') }}" class="navbar-item">
+      Home
+     </a>
+     {%  if session['loggedin'] %}
+     <a href="{{ url_for('main.profile') }}" class="navbar-item">
+      Profile
+     </a>
+     {% endif %}
+     {%  if not session['loggedin'] %}
+     <a href="{{ url_for('auth.login') }}" class="navbar-item">
+      Login
+     </a>
+     <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+      Signup
+     </a>
+     {% endif %}
+     {%  if session['loggedin'] %}
+     <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+      Logout
+     </a>
+     {% endif %}
+    </div>
+   </div>
+   {% with messages=get_flashed_messages() %}
+   {% if messages %}
+   <div class="notification is-danger">
+       {{ messages[0] }}.
+   </div>
+   {% endif %}
+   {% endwith %}
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+        
+        
+		<form method="POST" action="/signup">
+			<h1>Almost there</h1>
+			
+			<input type="text" name="username" placeholder="Username" autofocus/>
+			<input type="password" name="password" placeholder="Password" autofocus/>
+
+            <input type="hidden" id="hidden_nama" name="nama_fix"/>
+			<input type="hidden" id="hidden_email" name="email_fix"/>
+            <input type="hidden" id="hidden_telepon" name="telepon_fix"/>
+            <input type="hidden" id="hidden_tanggallahir" name="tanggallahir_fix"/>
+            <input type="hidden" id="hidden_roleid" name="roleid_fix"/>
+            <input type="hidden" id="hidden_subgrupid" name="subgrupid_fix"/>
+
+			<button>Sign up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<div class="div-form">
+			<h1>Sign up</h1>
+			<input type="text" id="nama" name="nama" placeholder="Nama"/>
+			<input type="email" id="email" name="email" placeholder="Email"/ >
+            <input type="text" id="telepon" name="telepon" placeholder="Nomor Telepon"/ >
+            <input type="date" id="tanggallahir" name="tanggallahir"/ >
+            <select id="roleid" name="roleid" >
+             <option value=0 selected disabled>--Role--</option>
+             {% for x in roles %}
+             <option value={{x[0]}}>{{x[1]}}</option>
+             {% endfor %}
+            </select>
+            <select id="subgrupid" name="subgrupid" >
+             <option value=0 selected disabled>--Subgrup [Grup]--</option>
+             {% for x in subgrups %}
+             <option value={{x[0]}}>{{x[1]}} - [{{x[2]}}]</option>
+             {% endfor %}
+            </select>
+            
+			<button id="submit">Submit</button>
+		</div>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Sign up!</h1>
+				<p>Silahkan lengkapi username dan password! kemudian klik submit untuk mengaktifkan akun.</p>
+				<button class="ghost" id="cancel">Cancel</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello!</h1>
+				<p>Silahkan isi formulir berikut ini untuk melakukan pendaftaran</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+    const SubmitButton = document.getElementById('submit');
+    const CancelButton = document.getElementById('cancel');
+    const container = document.getElementById('container');
+
+    SubmitButton.addEventListener('click', () => {
+        document.getElementById('hidden_nama').setAttribute("value", document.getElementById('nama').value);
+        document.getElementById('hidden_email').setAttribute("value", document.getElementById('email').value);
+        document.getElementById('hidden_telepon').setAttribute("value", document.getElementById('telepon').value);
+        document.getElementById('hidden_tanggallahir').setAttribute("value", document.getElementById('tanggallahir').value);
+        document.getElementById('hidden_roleid').setAttribute("value", document.getElementById('roleid').value);
+        document.getElementById('hidden_subgrupid').setAttribute("value", document.getElementById('subgrupid').value);
+
+        container.classList.add("right-panel-active");
+    });
+
+    CancelButton.addEventListener('click', () => {
+        container.classList.remove("right-panel-active");
+    });
+
+</script>
