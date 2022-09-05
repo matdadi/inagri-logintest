@@ -18,6 +18,11 @@ password: inagri1234.
 # database
 dump-dadi-submission-202209031540.sql
 
+host='localhost',
+database='dadi-submission',
+user='root',
+password='')
+
 # requirements
 python = "^3.8"
 Flask = "^2.2.2"
