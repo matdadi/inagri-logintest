@@ -62,9 +62,6 @@ def signup_post():
     session.pop('_flashes', None)
     # validate and add user to db
     username = request.form.get('username')
-    if not re.match(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$', request.form.get('password')):
-        flash("Password must contain minimum eight characters, at least one letter, one number and one special character!", "danger")
-
     password = generate_password_hash(request.form.get('password'), method='sha256')
 
     nama = request.form.get('nama_fix')
@@ -93,6 +90,9 @@ def signup_post():
     elif subgrupid=='':
         flash("Lengkapi formulir pendaftaran", "danger")
         return redirect(url_for('auth.signup'))
+    elif not re.match(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*.#?&])[A-Za-z\d@$!.%*#?&]{8,}$', request.form.get('password')):
+        flash("Password must contain minimum eight characters, at least one letter, one number and one special character!", "danger")
+        return redirect(url_for('auth.signup'))
 
     cursor = db.cursor()
     adr = (username,)
@@ -114,7 +114,7 @@ def signup_post():
     cursor.close()
 
     
-    session.pop('_flashes', None)
+    flash("Sign up berhasil", "success")
     return redirect(url_for('auth.login'))
     # return render_template('index.html', user=user)
 
