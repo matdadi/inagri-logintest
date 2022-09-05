@@ -1,16 +1,12 @@
 # inagri-logintest
 Dadi Rahmat
 
-requirements
-flask==2.2.2
-flask_mysqldb
-re
-urllib
-functools
-werkzeug
-
 # run windows
 
+git curl https://github.com/matdadi/inagri-logintest.git
+py -m venv env_
+env\scripts\activate.bat
+pip install flask mysql-connector-python
 set FLASK_APP=dadi-submission
 set FLASK_DEBUG=1
 flask run
