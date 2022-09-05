@@ -7,11 +7,15 @@
  <h3 class="title">Login</h3>
  <div class="box">
     {% with messages=get_flashed_messages() %}
-    {% if messages %}
+    {% if messages[1]=='danger' %}
      <div class="notification is-danger">
+    {% else %}
+     <div class="notification is-success">
+    {% endif %}
       {{ messages[0] }}.
      </div>
     {% endif %}
+    {% endwith %}
     {% endwith %}
   <form method="POST" action="/login">
    <div class="field">
