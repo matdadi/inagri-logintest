@@ -17,3 +17,8 @@ password: inagri1234.
 
 # database
 dump-dadi-submission-202209031540.sql
+
+# requirements
+python = "^3.8"
+Flask = "^2.2.2"
+mysql-connector-python = "^8.0.30"
