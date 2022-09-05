@@ -28,11 +28,11 @@ def login_post():
     # check if user is exist
     # check the hashed password
     if not user or not check_password_hash(user[4], password):
-        flash('Please check your login details and try again.')
+        flash('Please check your login details and try again.', "danger")
         return redirect(url_for('auth.login'))
 
     if user[9]==0:
-        flash('Your user account is blocked!')
+        flash('Your user account is blocked!', "danger")
         return redirect(url_for('auth.login'))
 
     session['loggedin'] = True
