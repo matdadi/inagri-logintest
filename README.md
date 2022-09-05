@@ -3,7 +3,7 @@ Dadi Rahmat
 
 # run windows
 
-git curl https://github.com/matdadi/inagri-logintest.git
+git clone https://github.com/matdadi/inagri-logintest.git
 py -m venv env_
 env\scripts\activate.bat
 pip install flask mysql-connector-python
